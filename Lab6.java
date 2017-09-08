@@ -1,4 +1,3 @@
-
 /**
  * author :Anushka Bhandari
  * 2016134
@@ -7,9 +6,11 @@
 
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -98,7 +99,7 @@ public class Lab6 {
 
 		}
 	}
-	static void run(Knight thi) throws NonCoordinateException, OverlapException, QueenFoundException {
+	static void run(Knight thi) throws NonCoordinateException, OverlapException, QueenFoundException, IOException {
 		try{
 			String[] u=thi.stack.pop();
 			if(!u[0].equals("Coordinate"))
@@ -113,21 +114,39 @@ public class Lab6 {
 
 
 
-			System.out.println("No exception"+" "+thi.co.x+" "+thi.co.y);
+			BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt", true));
+
+			writer.write("No exception"+" "+thi.co.x+" "+thi.co.y+"\n");
+			writer.close();
+
 
 		}
 		catch(EmptyStackException e){
-			System.out.println("StackEmptyException: Stack Empty exception");
+			
+			BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt", true));
+
+			writer.write("StackEmptyException: Stack Empty exception"+"\n");
+			writer.close();
+
 		}
 		catch(OverlapException e){
 
-			System.out.println(e) ;
+			BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt", true));
+
+			writer.write(e.getMessage()+"\n");
+			writer.close();
 		}
 		catch(NonCoordinateException e){
-			System.out.println(e) ;
+			BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt", true));
+
+			writer.write(e.getMessage()+"\n");
+			writer.close();
 		}
 		catch(QueenFoundException e){
-			System.out.println(e);
+			BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt", true));
+
+			writer.write(e.getMessage()+"\n");
+			writer.close();
 			System.exit(0);	}
 
 
@@ -144,6 +163,7 @@ public class Lab6 {
 	public static void main(String[] args) throws NumberFormatException, IOException, NonCoordinateException, OverlapException, QueenFoundException {
 		// TODO Auto-generated method stub
 		BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
+		
 		System.out.println("Enter The number of knights");
 		Integer i=Integer.parseInt(reader.readLine());
 		System.out.println("Enter The total number of iterations ");
@@ -181,7 +201,10 @@ public class Lab6 {
 			{
 				if(!k.leave)
 				{
-					System.out.println((int)(p+1)+" "+k.Name+" "+k.co.x+" "+k.co.y);
+					BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt", true));
+
+					writer.write((int)(p+1)+" "+k.Name+" "+k.co.x+" "+k.co.y+"\n");
+					writer.close();
 
 					run(k);
 				}
